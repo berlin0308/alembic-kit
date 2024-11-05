@@ -1,0 +1,28 @@
+<section class="section typeset">
+    <ul class="list list--posts">
+      
+      {% if page.url contains 'project' %}
+        <!-- 顯示 _projects 集合的內容 -->
+        {% assign items = site.projects %}
+      {% else %}
+        <!-- 預設顯示 _posts 集合的內容 -->
+        {% assign items = site.posts %}
+      {% endif %}
+  
+      {% for page in items %}
+        <li class="item item--post">
+          <article class="article article--post">
+            <h3><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></h3>
+            {% include post-meta.html %}
+            {{ page.excerpt | markdownify | truncatewords: 60 }}
+          </article>
+        </li>
+      {% endfor %}
+      
+    </ul>
+  
+    {% if paginator.posts and page.url contains 'blog' %}
+      {% include post-pagination.html %}
+    {% endif %}
+  </section>
+  
